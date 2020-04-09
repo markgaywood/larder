@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group 'net.amg.larder'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest:2.1'
+}
+
+jar {
+    enabled = true
+    zip64 = true
+    doFirst {
+        manifest {
+            attributes(
+                    'Implementation-Version': getArchiveVersion() ?: '',
+                    'Built-By': System.properties['user.name'],
+                    'Built-JDK': System.properties['test.version'] ?: JavaVersion.current().toString(),
+                    'Built-Gradle': gradle.gradleVersion,
+                    'Built-OS': "${System.properties['os.name']} (${System.properties['os.version']})")
+        }
+    }
+}
