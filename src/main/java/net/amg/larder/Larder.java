@@ -12,15 +12,18 @@ import java.util.Map;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Larder {
     private final Map<FoodItem, Integer> stock;
+
     public static Larder from(Map<FoodItem, Integer> stock) {
         return new Larder(stock);
     }
+
     public List<String> retrieveLarderContents() {
         List<String> data = new ArrayList<>();
         data.add("------\nLarder generally stocks:");
         stock.forEach((key, value) -> data.add(key.getName()));
         return data;
     }
+
     public List<String> retrieveItemsInStock() {
         List<String> data = new ArrayList<>();
         data.add("------\nLarder  contain:");
@@ -31,6 +34,7 @@ public class Larder {
         });
         return data;
     }
+
     public List<String> retrieveItemOutOfStock() {
         List<String> data = new ArrayList<>();
         data.add("------\nLarder does not contain:");
