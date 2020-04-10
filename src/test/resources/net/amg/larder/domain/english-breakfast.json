@@ -1,0 +1,18 @@
+{
+  "recipes": {
+    "english-breakfast": {
+      "ingredients": {
+        "egg": 2,
+        "mushroom": 5,
+        "bacon": 2
+      }
+    },
+    "vegetarian-breakfast": {
+      "ingredients": {
+        "egg": 2,
+        "mushroom": 5,
+        "beans": 1
+      }
+    }
+  }
+}

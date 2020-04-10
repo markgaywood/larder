@@ -1,12 +1,11 @@
 package net.amg.larder.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.amg.larder.utils.IncorrectJson;
+import net.amg.larder.utils.JsonDeserialiser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +13,12 @@ import java.util.Map;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Larder {
     @JsonProperty
     private Map<FoodItem, Integer> stock;
 
-    public static Larder from(String json) throws JsonProcessingException {
-        return new ObjectMapper().readValue(json, Larder.class);
+    public static Larder from(String json) throws IncorrectJson {
+        return JsonDeserialiser.from(json, Larder.class);
     }
 
     public List<String> retrieveLarderContents() {
