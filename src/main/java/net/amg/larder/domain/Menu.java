@@ -14,6 +14,7 @@ import static java.lang.String.format;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Menu {
+    @SuppressWarnings("unused")
     @JsonProperty
     private Map<MenuItem, Ingredients> recipes;
 
