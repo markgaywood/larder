@@ -6,5 +6,5 @@ Bit of simple java fun with my chef son.
 1. do a stock take itemising:
    1. what stock you have;
    1. what you are out of.
-1. make a recipe(s) using the items you expect to be in the `Larder`. 
+1. make a menu using the items you expect to be in the `Larder`. 
 1. design a `menu` and make sure you have enough stock to cater for 20 guests.
