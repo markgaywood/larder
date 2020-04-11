@@ -16,4 +16,9 @@ public class FoodItem {
     public static FoodItem from(String item) {
         return new FoodItem(item);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

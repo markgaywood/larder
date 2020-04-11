@@ -58,16 +58,14 @@ public class Larder {
         stock.computeIfPresent(item, (key, val) -> val + amount);
     }
 
-    public void removeToStock(FoodItem item, int amount) throws StockError {
-        if (stock.containsKey(item)) {
-            if (stock.get(item) >= amount) {
-                stock.computeIfPresent(item, (key, val) -> val - amount);
-            } else {
-                throw new StockError(format("Only have %d of %s", stock.get(item), item));
-            }
-        } else {
+    public void removeFromStock(FoodItem item, int amount) throws StockError {
+        if (!stock.containsKey(item)) {
             throw new StockError(format("We do not have any %s", item));
         }
+        if (stock.get(item) < amount) {
+            throw new StockError(format("Only have %d of %s", stock.get(item), item));
+        }
+        stock.computeIfPresent(item, (key, val) -> val - amount);
     }
 
     public static class StockError extends Exception {
