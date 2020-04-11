@@ -46,4 +46,9 @@ public class Larder {
         });
         return data;
     }
+
+    public void addToStock(FoodItem item, int amount) {
+        stock.computeIfAbsent(item, key -> 0);
+        stock.computeIfPresent(item, (key, val) -> val + amount);
+    }
 }

@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static java.lang.String.format;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsIterableContaining.hasItems;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.StringContains.containsString;
@@ -54,4 +55,17 @@ public class LarderTest {
         assertThat(data, not(hasItems("eggs")));
     }
 
+    @Test
+    public void add12MoreEggs_shouldBe24Now() throws Exception {
+        FoodItem egg = FoodItem.from("egg");
+        larder.addToStock(egg, 12);
+        assertThat(larder.getStock().get(egg), equalTo(24));
+    }
+
+    @Test
+    public void add6Tomatoes() throws Exception {
+        FoodItem tomato = FoodItem.from("tomato");
+        larder.addToStock(tomato, 6);
+        assertThat(larder.getStock().get(tomato), equalTo(6));
+    }
 }

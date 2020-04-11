@@ -25,4 +25,8 @@ public class Menu {
                 .filter(recipe -> recipe.getKey().equals(name))
                 .findFirst().orElseThrow(() -> new IOException("nothing")).getValue();
     }
+
+    public int howManyCanIMake(Ingredients recipe) {
+        return 0;
+    }
 }
