@@ -13,7 +13,7 @@ public class FoodItem {
     @JsonValue
     private final String name;
 
-    public static FoodItem from(String item){
+    public static FoodItem from(String item) {
         return new FoodItem(item);
     }
 }

@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 import net.amg.larder.utils.IncorrectJson;
 import net.amg.larder.utils.JsonDeserialiser;
 
-import java.io.IOException;
 import java.util.Map;
+
+import static java.lang.String.format;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,13 +21,15 @@ public class Menu {
         return JsonDeserialiser.from(json, Menu.class);
     }
 
-    public Ingredients getRecipe(String name) throws IOException {
+    public Ingredients getRecipe(String name) throws MenuError {
         return recipes.entrySet().stream()
                 .filter(recipe -> recipe.getKey().equals(name))
-                .findFirst().orElseThrow(() -> new IOException("nothing")).getValue();
+                .findFirst().orElseThrow(() -> new MenuError(format("We do not have %s on the menu.", name))).getValue();
     }
 
-    public int howManyCanIMake(Ingredients recipe) {
-        return 0;
+    public static class MenuError extends Exception {
+        public MenuError(String message) {
+            super(message);
+        }
     }
 }

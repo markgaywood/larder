@@ -1,7 +1,7 @@
 package net.amg.larder.domain;
 
 import net.amg.larder.utils.ResourceFromClasspath;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -14,10 +14,10 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
 public class LarderTest {
-    private static Larder larder;
+    private Larder larder;
 
-    @BeforeClass
-    public static void setup() throws Exception {
+    @Before
+    public void setup() throws Exception {
         larder = Larder.from(ResourceFromClasspath.contentsOf("net/amg/larder/domain/stock-001.json"));
     }
 
@@ -39,7 +39,7 @@ public class LarderTest {
 
     @Test
     public void retrieveItemsInStock_shouldNotContainHashBrowns() {
-        assertThat(larder.retrieveItemOutOfStock(), not(hasItems("hash brown")));
+        assertThat(larder.retrieveItemOutOfStock(), hasItems("hash brown"));
     }
 
     @Test
@@ -67,5 +67,24 @@ public class LarderTest {
         FoodItem tomato = FoodItem.from("tomato");
         larder.addToStock(tomato, 6);
         assertThat(larder.getStock().get(tomato), equalTo(6));
+    }
+
+    @Test
+    public void use7Eggs_stockReducedTo5() throws Exception {
+        FoodItem egg = FoodItem.from("egg");
+        larder.removeToStock(egg, 7);
+        assertThat(larder.howManyDoIHave(egg), equalTo(5));
+    }
+
+    @Test(expected = Larder.StockError.class)
+    public void remove6Tomatoes_throwsStockError() throws Exception {
+        FoodItem tomato = FoodItem.from("tomato");
+        larder.removeToStock(tomato, 6);
+    }
+
+    @Test(expected = Larder.StockError.class)
+    public void useMoreBaconThanWehave_throwsStockError() throws Exception {
+        FoodItem bacon = FoodItem.from("bacon");
+        larder.removeToStock(bacon, 10);
     }
 }
