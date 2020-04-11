@@ -18,18 +18,18 @@ public class MenuTest {
 
     @Test
     public void isBaconIncludedWithTheEnglishBreakfast() throws Exception {
-        Ingredients english = menu.getRecipe("english-breakfast");
+        Ingredients english = menu.getRecipe(MenuItem.from("english-breakfast"));
         assertThat(english.getFoodList().get(FoodItem.from("bacon")), equalTo(2));
     }
 
     @Test
     public void noBaconInTheVegetarian() throws Exception {
-        Ingredients english = menu.getRecipe("vegetarian-breakfast");
+        Ingredients english = menu.getRecipe(MenuItem.from("vegetarian-breakfast"));
         assertNull(english.getFoodList().get(FoodItem.from("bacon")));
     }
 
     @Test(expected = Menu.MenuError.class)
     public void doYouDoEggsBenedict_no() throws Exception {
-        menu.getRecipe("eggs benedict");
+        menu.getRecipe(MenuItem.from("eggs benedict"));
     }
 }

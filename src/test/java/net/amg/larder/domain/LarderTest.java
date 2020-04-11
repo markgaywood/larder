@@ -56,14 +56,14 @@ public class LarderTest {
     }
 
     @Test
-    public void add12MoreEggs_shouldBe24Now() throws Exception {
+    public void add12MoreEggs_shouldBe24Now() {
         FoodItem egg = FoodItem.from("egg");
         larder.addToStock(egg, 12);
         assertThat(larder.getStock().get(egg), equalTo(24));
     }
 
     @Test
-    public void add6Tomatoes() throws Exception {
+    public void add6Tomatoes() {
         FoodItem tomato = FoodItem.from("tomato");
         larder.addToStock(tomato, 6);
         assertThat(larder.getStock().get(tomato), equalTo(6));
