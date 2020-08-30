@@ -26,7 +26,7 @@ public class Ingredients {
         return foodList.get(item);
     }
 
-    public static class IngredientsError extends Exception {
+    static class IngredientsError extends Exception {
         public IngredientsError(String message) {
             super(message);
         }

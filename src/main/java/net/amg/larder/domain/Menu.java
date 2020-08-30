@@ -14,7 +14,6 @@ import static java.lang.String.format;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Menu {
-    @SuppressWarnings("unused")
     @JsonProperty
     private Map<MenuItem, Ingredients> recipes;
 
@@ -25,7 +24,8 @@ public class Menu {
     public Ingredients getRecipe(MenuItem name) throws MenuError {
         return recipes.entrySet().stream()
                 .filter(recipe -> recipe.getKey().equals(name))
-                .findFirst().orElseThrow(() -> new MenuError(format("We do not have %s on the menu.", name))).getValue();
+                .findFirst()
+                .orElseThrow(() -> new MenuError(format("We do not have %s on the menu.", name))).getValue();
     }
 
     public static class MenuError extends Exception {

@@ -13,7 +13,7 @@ public class MenuTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        menu = Menu.from(contentsOf("net/amg/larder/domain/english-breakfast.json"));
+        menu = Menu.from(contentsOf("net/amg/larder/domain/breakfast-menu.json"));
     }
 
     @Test

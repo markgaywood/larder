@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import net.amg.larder.utils.IncorrectJson;
 import net.amg.larder.utils.JsonDeserialiser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -24,29 +24,26 @@ public class Larder {
     }
 
     public List<String> retrieveLarderContents() {
-        List<String> data = new ArrayList<>();
-        stock.forEach((key, value) -> data.add(key.getName()));
-        return data;
+        return stock.keySet()
+                .stream().parallel()
+                .map(FoodItem::getName)
+                .collect(Collectors.toList());
     }
 
     public List<String> retrieveItemsInStock() {
-        List<String> data = new ArrayList<>();
-        stock.forEach((key, value) -> {
-            if (value > 0) {
-                data.add(format("%3d portions of %s", value, key.getName()));
-            }
-        });
-        return data;
+        return stock.entrySet()
+                .stream().parallel()
+                .filter(stockItem -> stockItem.getValue() > 0)
+                .map(stockItem -> String.format("%3d portions of %s", stockItem.getValue(), stockItem.getKey().getName()))
+                .collect(Collectors.toList());
     }
 
     public List<String> retrieveItemOutOfStock() {
-        List<String> data = new ArrayList<>();
-        stock.forEach((key, value) -> {
-            if (value == 0) {
-                data.add(key.getName());
-            }
-        });
-        return data;
+        return stock.entrySet()
+                .stream().parallel()
+                .filter(stockItem -> stockItem.getValue() == 0)
+                .map(stockItem -> stockItem.getKey().getName())
+                .collect(Collectors.toList());
     }
 
     public int howManyDoIHave(FoodItem item) {
